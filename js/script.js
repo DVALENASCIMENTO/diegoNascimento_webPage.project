@@ -1,31 +1,58 @@
-let musicStarted = false;
+let musicStarted = false; // Controle se a música de fundo já foi iniciada
+let playCount = 0; // Contador de reproduções
 
-document.addEventListener('click', function() {
+// Toca a música de fundo ao clicar, mas apenas uma vez
+document.addEventListener('click', function () {
+    const backgroundMusic = document.getElementById('background-music');
+
     if (!musicStarted) {
-        document.getElementById('background-music').play();
+        backgroundMusic.play().catch(error => {
+            console.error("Erro ao tocar a música de fundo:", error);
+        });
         musicStarted = true;
+
+        // Adiciona um listener para parar a música de fundo quando terminar
+        backgroundMusic.addEventListener('ended', () => {
+            backgroundMusic.currentTime = 0; // Reinicia a música
+            backgroundMusic.pause(); // Para a música
+        });
     }
 });
 
+// Função para tocar a música selecionada
 function playSong(song) {
     const audio = document.getElementById('audio');
-    switch(song) {
-        case 'song1':
-            audio.src = 'path/to/song1.mp3'; // Substitua pelo caminho correto
-            break;
-        case 'song2':
-            audio.src = 'path/to/song2.mp3'; // Substitua pelo caminho correto
-            break;
-        default:
-            audio.src = '';
-    }
+
+    // Para a música de fundo imediatamente
+    stopMusic(); // Para a música de fundo antes de tocar a nova canção
+
+    audio.src = song; // Atribui o caminho da música diretamente
+    audio.play().catch(error => {
+        console.error("Erro ao tocar a música:", error);
+    });
+
+    playCount++;
+    updatePlayCount();
+}
+
+
+
+// Funções de controle de música
+function pauseMusic() {
+    const audio = document.getElementById('background-music');
+    audio.pause();
+}
+
+function resumeMusic() {
+    const audio = document.getElementById('background-music');
     audio.play();
 }
 
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Mensagem enviada com sucesso!');
-});
+function stopMusic() {
+    const audio = document.getElementById('background-music');
+    audio.pause();
+    audio.currentTime = 0; // Reinicia a música
+}
 
 // Slider de Imagens
 let currentSlide = 0;
@@ -50,6 +77,15 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
+// Navegação do slider com as teclas de seta
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowRight') {
+        nextSlide();
+    } else if (event.key === 'ArrowLeft') {
+        prevSlide();
+    }
+});
+
 // Animação de título
 document.addEventListener('DOMContentLoaded', () => {
     const title = document.getElementById('header-title');
@@ -59,3 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
         title.style.color = `hsl(${hue}, 100%, 50%)`;
     }, 100);
 });
+
+// Controle de visibilidade do menu
+function toggleMenu() {
+    const nav = document.querySelector('.sidebar-nav ul');
+    nav.classList.toggle('show');
+}

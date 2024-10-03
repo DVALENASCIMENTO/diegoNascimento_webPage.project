@@ -8,27 +8,35 @@
 </head>
 <body>
     <header>
-        <div class="cover-photo"></div>
-        <h1 id="header-title">Diego Nascimento</h1>
-        <nav>
-            <ul>
-                <li><a href="#bio">Biografia</a></li>
-                <li><a href="#music">Músicas</a></li>
-                <li><a href="#gallery">Galeria</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-        </nav>
+        <div class="sidebar">
+            <h1 class="sidebar-title">Diego Nascimento</h1>
+            <nav class="sidebar-nav">
+                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+                <ul>
+                    <li><a href="#bio">Biografia</a></li>
+                    <li><a href="#music">Músicas</a></li>
+                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="cover-photo-container">
+            <div class="cover-photo"></div>
+        </div>
     </header>
 
     <section id="bio">
         <h2>Biografia</h2>
-        <p>Diego Nascimento é um cantor e instrumentista renomado, conhecido por seu talento em Bossa Nova, Jazz, Rock, e muito mais. Ele canta em Português, Inglês, Espanhol e Francês.</p>
+        <p>Diego Nascimento é um cantor e instrumentista renomado...</p>
     </section>
 
     <section id="music">
         <h2>Músicas</h2>
         <div id="music-player">
-            <button onclick="playSong('song1')">Tocar Música 1</button>
+            <button onclick="playSong('sounds/NewYork_NewYork.mp3')">New York, New York</button>
+            <button onclick="playSong('sounds/Somewhere Over The Rainbow.mp3')">Somewhere Over The Rainbow</button>
+            <button onclick="playSong('sounds/Yesterday(Elvis Presley).mp3')">Yesterday</button>
             <button onclick="playSong('song2')">Tocar Música 2</button>
             <audio id="audio" controls></audio>
         </div>
@@ -49,16 +57,13 @@
 
     <section id="contact">
         <h2>Contato</h2>
-        <form id="contact-form">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Mensagem:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
+        <p>Para informações sobre shows e agendamentos, entre em contato pelo WhatsApp:</p>
+        <br>
+        <a href="https://wa.me/5592995178534" target="_blank" id="whatsapp-button">
+            <button>WhatsApp</button>
+        </a>
     </section>
+    
 
     <footer>
         <p>&copy; 2024 Diego Nascimento. Todos os direitos reservados.</p>
@@ -73,7 +78,7 @@
     </footer>
 
     <!-- Música de fundo -->
-    <audio id="background-music" src="background-music.mp3" autoplay loop></audio>
+    <audio id="background-music" src="sounds/flyMeToTheMoon_1min.mp3" autoplay loop></audio>
 
     <script src="js/script.js"></script>
 </body>
