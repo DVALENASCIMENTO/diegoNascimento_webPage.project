@@ -268,6 +268,29 @@ form input, form textarea {
     background-color: #1DAF60; /* Tom mais escuro no hover */
 }
 
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza o popup na tela */
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.popup p {
+    color: white;
+    font-size: 16px;
+    text-align: center; /* Centraliza o texto horizontalmente */
+    margin: 0; /* Remove qualquer margem extra no <p> */
+}
+
+
 
 /* Footer */
 footer {

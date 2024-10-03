@@ -1,30 +1,31 @@
+// Variáveis de controle
 let musicStarted = false; // Controle se a música de fundo já foi iniciada
 let playCount = 0; // Contador de reproduções
 
-// Toca a música de fundo ao clicar, mas apenas uma vez
-document.addEventListener('click', function () {
-    const backgroundMusic = document.getElementById('background-music');
+// Mostra o popup ao carregar a página
+window.addEventListener('DOMContentLoaded', function () {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'flex'; // Exibe o popup como flex para centralizar o conteúdo
 
-    if (!musicStarted) {
-        backgroundMusic.play().catch(error => {
-            console.error("Erro ao tocar a música de fundo:", error);
-        });
-        musicStarted = true;
-
-        // Adiciona um listener para parar a música de fundo quando terminar
-        backgroundMusic.addEventListener('ended', () => {
-            backgroundMusic.currentTime = 0; // Reinicia a música
-            backgroundMusic.pause(); // Para a música
-        });
-    }
+    // Ao clicar no popup, inicia a música
+    popup.addEventListener('click', function () {
+        const backgroundMusic = document.getElementById('background-music');
+        if (!musicStarted) {
+            backgroundMusic.play().catch(error => {
+                console.error("Erro ao tocar a música de fundo:", error);
+            });
+            musicStarted = true;
+            popup.style.display = 'none'; // Esconde o popup após o clique
+        }
+    });
 });
 
 // Função para tocar a música selecionada
 function playSong(song) {
     const audio = document.getElementById('audio');
 
-    // Para a música de fundo imediatamente
-    stopMusic(); // Para a música de fundo antes de tocar a nova canção
+    // Para a música de fundo antes de tocar a nova canção
+    stopMusic(); 
 
     audio.src = song; // Atribui o caminho da música diretamente
     audio.play().catch(error => {
@@ -32,10 +33,8 @@ function playSong(song) {
     });
 
     playCount++;
-    updatePlayCount();
+    updatePlayCount(); // Atualiza o contador de reproduções
 }
-
-
 
 // Funções de controle de música
 function pauseMusic() {
@@ -86,18 +85,8 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Animação de título
-document.addEventListener('DOMContentLoaded', () => {
-    const title = document.getElementById('header-title');
-    let hue = 0;
-    setInterval(() => {
-        hue = (hue + 1) % 360;
-        title.style.color = `hsl(${hue}, 100%, 50%)`;
-    }, 100);
-});
-
-// Controle de visibilidade do menu
-function toggleMenu() {
-    const nav = document.querySelector('.sidebar-nav ul');
-    nav.classList.toggle('show');
+// Função fictícia para atualizar o contador de reproduções (necessita implementação)
+function updatePlayCount() {
+    // Implemente a lógica para atualizar o contador de reproduções, se necessário
+    console.log(`Músicas reproduzidas: ${playCount}`);
 }
