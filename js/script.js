@@ -85,6 +85,26 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+// Animação de título
+document.addEventListener('DOMContentLoaded', () => {
+    const title = document.getElementById('header-title');
+    if (title) { // Verifica se o elemento existe
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 1) % 360;
+            title.style.color = `hsl(${hue}, 100%, 50%)`;
+        }, 100);
+    }
+});
+
+// Controle de visibilidade do menu
+function toggleMenu() {
+    const nav = document.querySelector('.sidebar-nav ul');
+    if (nav) { // Verifica se o elemento existe
+        nav.classList.toggle('show');
+    }
+}
+
 // Função fictícia para atualizar o contador de reproduções (necessita implementação)
 function updatePlayCount() {
     // Implemente a lógica para atualizar o contador de reproduções, se necessário
