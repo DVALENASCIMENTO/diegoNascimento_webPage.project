@@ -105,6 +105,22 @@ function toggleMenu() {
     }
 }
 
+// Recolher a sidebar após a seleção do item
+function hideSidebar() {
+    const nav = document.querySelector('.sidebar-nav ul');
+    if (nav) { // Verifica se o elemento existe
+        nav.classList.remove('show');
+    }
+}
+
+// Adiciona eventos de clique aos itens da sidebar
+const menuItems = document.querySelectorAll('.sidebar-nav ul li'); // Selecione os itens da sidebar
+menuItems.forEach(item => {
+    item.addEventListener('click', function() {
+        hideSidebar(); // Recolhe a sidebar após clicar em um item
+    });
+});
+
 // Função fictícia para atualizar o contador de reproduções (necessita implementação)
 function updatePlayCount() {
     // Implemente a lógica para atualizar o contador de reproduções, se necessário
