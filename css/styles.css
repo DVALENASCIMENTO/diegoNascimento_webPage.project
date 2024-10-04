@@ -142,6 +142,26 @@ section h2 {
     color: #4b4b4b;
 }
 
+#bio {
+    width: 100%; /* Preenche toda a largura do contêiner */
+    padding: 20px; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Inclui o padding na largura total */
+    margin: 20px 0; /* Espaçamento externo para separar das outras seções */
+}
+
+#bio h2 {
+    font-size: 2em; /* Ajusta o tamanho do título */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+}
+
+#bio p {
+    font-size: 1.2em; /* Ajusta o tamanho da fonte do parágrafo */
+    line-height: 1.5; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
+    text-align: justify; /* Justifica o texto para preencher todo o campo */
+    margin: 0; /* Remove margens padrão do parágrafo */
+}
+
+
 /* Player de Música */
 #music-player {
     display: flex;
@@ -185,11 +205,33 @@ section h2 {
 }
 
 .slider img {
-    width: 100%;
+    width: 40%; /* Diminui a largura das imagens para 40% */
     height: auto;
-    max-width: 500px;
+    max-width: 400px; /* Limita a largura máxima a 400px */
+    max-height: 300px;
     border-radius: 8px;
     margin: 0 10px;
+}
+
+/* Ajustes para telas menores (celulares) */
+@media (max-width: 768px) {
+    .slider img {
+        width: 70%; /* Aumenta um pouco para 70% em telas menores */
+        margin: 0 5%; /* Mantém uma margem lateral */
+    }
+}
+
+/* Ajustes para telas muito pequenas (ex: celulares) */
+@media (max-width: 480px) {
+    .slider img {
+        width: 85%; /* Ajusta para 85% em telas muito pequenas */
+        margin: 0 5%; /* Mantém uma margem razoável */
+    }
+
+    .gallery-container button {
+        padding: 5px; /* Diminui o padding dos botões */
+        font-size: 1.2em; /* Diminui o tamanho da fonte dos botões */
+    }
 }
 
 .gallery-container button {
@@ -217,6 +259,7 @@ section h2 {
 .gallery-container button:last-of-type {
     right: 10px;
 }
+
 
 /* Botões Genéricos */
 button {
