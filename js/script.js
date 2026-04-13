@@ -1,71 +1,161 @@
-// Variáveis de controle
-let musicStarted = false; // Controle se a música de fundo já foi iniciada
-let playCount = 0; // Contador de reproduções
+// ===============================
+// VARIÁVEIS DE CONTROLE
+// ===============================
+let musicStarted = false;
+let playCount = 0;
+let currentSlide = 0;
+let slideInterval;
 
-// Mostra o popup ao carregar a página
-window.addEventListener('DOMContentLoaded', function () {
+// ===============================
+// INICIALIZAÇÃO GERAL (UNIFICADA)
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+    initPopup();
+    initAudio();
+    initSlider();
+    initMenu();
+    initTitleAnimation();
+});
+
+// ===============================
+// POPUP + MÚSICA DE FUNDO
+// ===============================
+function initPopup() {
     const popup = document.getElementById('popup');
-    popup.style.display = 'flex'; // Exibe o popup como flex para centralizar o conteúdo
+    const backgroundMusic = document.getElementById('background-music');
 
-    // Ao clicar no popup, inicia a música
-    popup.addEventListener('click', function () {
-        const backgroundMusic = document.getElementById('background-music');
+    if (!popup || !backgroundMusic) return;
+
+    if (!localStorage.getItem("musicStarted")) {
+        popup.style.display = 'flex';
+    }
+
+    popup.addEventListener('click', () => {
         if (!musicStarted) {
             backgroundMusic.play().catch(error => {
                 console.error("Erro ao tocar a música de fundo:", error);
             });
+
             musicStarted = true;
-            popup.style.display = 'none'; // Esconde o popup após o clique
+            localStorage.setItem("musicStarted", "true");
+            popup.style.display = 'none';
         }
     });
-});
-
-// Função para tocar a música selecionada
-function playSong(song) {
-    const audio = document.getElementById('audio');
-
-    // Para a música de fundo antes de tocar a nova canção
-    stopMusic(); 
-
-    audio.src = song; // Atribui o caminho da música diretamente
-    audio.play().catch(error => {
-        console.error("Erro ao tocar a música:", error);
-    });
-
-    playCount++;
-    updatePlayCount(); // Atualiza o contador de reproduções
 }
 
-// Funções de controle de música
-function pauseMusic() {
-    const audio = document.getElementById('background-music');
+// ===============================
+// PLAYER DE MÚSICA
+// ===============================
+function initAudio() {
+    const audio = document.getElementById('audio');
+    const backgroundMusic = document.getElementById('background-music');
+
+    if (!audio || !backgroundMusic) return;
+
+    audio.addEventListener('ended', () => {
+        backgroundMusic.play().catch(() => {});
+    });
+}
+
+function playSong(song) {
+    const audio = document.getElementById('audio');
+    const backgroundMusic = document.getElementById('background-music');
+
+    if (!audio) {
+        console.error("Elemento de áudio não encontrado");
+        return;
+    }
+
+    // Para música de fundo
+    if (backgroundMusic) {
+        backgroundMusic.pause();
+    }
+
+    // RESET COMPLETO (ESSENCIAL)
     audio.pause();
+    audio.currentTime = 0;
+
+    // Corrige possíveis problemas de caminho (encode automático)
+    const encodedSong = encodeURI(song);
+
+    audio.src = encodedSong;
+    audio.load(); // 🔥 força carregamento
+
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                console.log("Música tocando:", song);
+            })
+            .catch(error => {
+                console.error("Erro ao tocar:", error);
+                alert("Erro ao reproduzir a música. Verifique o caminho do arquivo.");
+            });
+    }
+
+    playCount++;
+    updatePlayCount();
+}
+
+// ===============================
+// CONTROLE DE MÚSICA
+// ===============================
+function pauseMusic() {
+    document.getElementById('background-music')?.pause();
 }
 
 function resumeMusic() {
-    const audio = document.getElementById('background-music');
-    audio.play();
+    document.getElementById('background-music')?.play();
 }
 
 function stopMusic() {
     const audio = document.getElementById('background-music');
-    audio.pause();
-    audio.currentTime = 0; // Reinicia a música
+    if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
 }
 
-// Slider de Imagens
-let currentSlide = 0;
+// ===============================
+// SLIDER (CORRIGIDO)
+// ===============================
+function initSlider() {
+    const slides = document.querySelectorAll('.slider img');
+    const slider = document.querySelector('.slider');
+
+    if (!slides.length || !slider) {
+        console.warn("Slider não encontrado ou sem imagens.");
+        return;
+    }
+
+    // Garante posição inicial
+    currentSlide = 0;
+    updateSlider();
+
+    // Autoplay
+    slideInterval = setInterval(() => {
+        nextSlide();
+    }, 4000);
+}
+
+function updateSlider() {
+    const slider = document.querySelector('.slider');
+    if (!slider) return;
+
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
 
 function showSlide(index) {
     const slides = document.querySelectorAll('.slider img');
-    if (index >= slides.length) {
-        currentSlide = 0;
-    } else if (index < 0) {
-        currentSlide = slides.length - 1;
-    } else {
-        currentSlide = index;
-    }
-    document.querySelector('.slider').style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    if (!slides.length) return;
+
+    if (index >= slides.length) currentSlide = 0;
+    else if (index < 0) currentSlide = slides.length - 1;
+    else currentSlide = index;
+
+    updateSlider();
 }
 
 function nextSlide() {
@@ -76,53 +166,91 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
-// Navegação do slider com as teclas de seta
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'ArrowRight') {
-        nextSlide();
-    } else if (event.key === 'ArrowLeft') {
-        prevSlide();
-    }
+// ===============================
+// TECLADO
+// ===============================
+document.addEventListener('keydown', (event) => {
+    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+
+    if (event.key === 'ArrowRight') nextSlide();
+    if (event.key === 'ArrowLeft') prevSlide();
 });
 
-// Animação de título
-document.addEventListener('DOMContentLoaded', () => {
-    const title = document.getElementById('header-title');
-    if (title) { // Verifica se o elemento existe
-        let hue = 0;
-        setInterval(() => {
-            hue = (hue + 1) % 360;
-            title.style.color = `hsl(${hue}, 100%, 50%)`;
-        }, 100);
-    }
-});
+// ===============================
+// MENU MOBILE
+// ===============================
+function initMenu() {
+    const menuItems = document.querySelectorAll('.sidebar-nav ul li');
 
-// Controle de visibilidade do menu
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            hideSidebar();
+        });
+    });
+}
+
 function toggleMenu() {
     const nav = document.querySelector('.sidebar-nav ul');
-    if (nav) { // Verifica se o elemento existe
-        nav.classList.toggle('show');
-    }
+    nav?.classList.toggle('show');
 }
 
-// Recolher a sidebar após a seleção do item
 function hideSidebar() {
     const nav = document.querySelector('.sidebar-nav ul');
-    if (nav) { // Verifica se o elemento existe
-        nav.classList.remove('show');
-    }
+    nav?.classList.remove('show');
 }
 
-// Adiciona eventos de clique aos itens da sidebar
-const menuItems = document.querySelectorAll('.sidebar-nav ul li'); // Selecione os itens da sidebar
-menuItems.forEach(item => {
-    item.addEventListener('click', function() {
-        hideSidebar(); // Recolhe a sidebar após clicar em um item
-    });
+// ===============================
+// ANIMAÇÃO DE TÍTULO
+// ===============================
+function initTitleAnimation() {
+    const title = document.getElementById('header-title');
+
+    if (!title) return;
+
+    let hue = 0;
+
+    setInterval(() => {
+        hue = (hue + 1) % 360;
+        title.style.color = `hsl(${hue}, 100%, 50%)`;
+    }, 150);
+}
+
+// ===============================
+// CONTADOR DE REPRODUÇÃO
+// ===============================
+function updatePlayCount() {
+    console.log(`Músicas reproduzidas: ${playCount}`);
+}
+
+let images = [];
+let currentIndex = 0;
+let autoSlide;
+
+// Inicializa galeria
+document.addEventListener('DOMContentLoaded', () => {
+    images = document.querySelectorAll('.thumbnails img');
+
+    if (images.length === 0) return;
+
+    selectImage(0);
+
+    // Auto troca
+    autoSlide = setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        selectImage(currentIndex);
+    }, 4000);
 });
 
-// Função fictícia para atualizar o contador de reproduções (necessita implementação)
-function updatePlayCount() {
-    // Implemente a lógica para atualizar o contador de reproduções, se necessário
-    console.log(`Músicas reproduzidas: ${playCount}`);
+function selectImage(index) {
+    const mainImage = document.getElementById('currentImage');
+
+    if (!mainImage || images.length === 0) return;
+
+    currentIndex = index;
+
+    mainImage.src = images[index].src;
+
+    // Atualiza destaque
+    images.forEach(img => img.classList.remove('active'));
+    images[index].classList.add('active');
 }

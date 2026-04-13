@@ -6,101 +6,137 @@
     <title>Diego Nascimento - Cantor e Instrumentista</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <header>
-        <div class="sidebar">
-            <h1 class="sidebar-title">Diego Nascimento</h1>
-            <nav class="sidebar-nav">
-                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-                <ul>
-                    <li><a href="#bio">Biografia</a></li>
-                    <li><a href="#music">Músicas</a></li>
-                    <li><a href="#gallery">Galeria</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
 
-        <div class="cover-photo-container">
-            <div class="cover-photo"></div>
-        </div>
-    </header>
-
-    <section id="bio">
-        <h2>Biografia</h2>
-        <p>Diego Nascimento, de família de músicos, herdou o dom de seu avô, Joaquim Nascimento, o qual era violonista e compositor. Teve seu primeiro contato com o teclado aos 8 anos, influenciado por seu pai, Marialvo Nascimento, o qual é multi-instrumentista e produtor musical. 
-            Aos 13 anos, aprendeu a tocar violão e, aos 14, estudou técnicas vocais e partitura, enquanto crescia e desenvolvia a sua musicalidade no estúdio de seu pai. 
-            Aos 15, aprofundou-se em violão clássico, guitarra e bateria no Liceu de Artes e Ofícios Cláudio Santoro. Ingressou na Faculdade de Música da Universidade Federal do Amazonas, onde estudou por dois anos. 
-            Dedicou dez anos ao ensino de música e compôs, além de diversas músicas, a obra clássica para piano, <a href="https://dvalenascimento.github.io/melodias_da_floresta_web_page/">Melodias da Floresta</a>, 
-            que retrata os cantos dos pássaros. Atualmente, interpreta músicas internacionais em inglês, espanhol, francês e português, abrangendo gêneros como Rock, Jazz, Bossa Nova, entre outros.</p>
-    </section>
-
-    <section id="music">
-        <h2>Músicas</h2>
-        <div id="music-player">
-            <button onclick="playSong('sounds/NewYork_NewYork.mp3')">New York, New York</button>
-            <button onclick="playSong('sounds/Somewhere Over The Rainbow.mp3')">Somewhere Over The Rainbow</button>
-            <button onclick="playSong('sounds/Yesterday(Elvis Presley).mp3')">Yesterday</button>
-            <button onclick="playSong('sounds/Something.mp3')">Something</button>
-            <button onclick="playSong('sounds/La Barca_.mp3')">La Barca</button>
-            <button onclick="playSong('sounds/El Reloj_.mp3')">El Reloj</button>
-            <button onclick="playSong('sounds/Suspicious Mind_ (Elvis Presley).mp3')">Suspicious Mind</button>
-            <button onclick="playSong('sounds/Its Now or Never.mp3')">It´s Now or Never</button>
-            <button onclick="playSong('sounds/Kiss Me Quick_ (Elvis Presley).mp3')">Kiss Me Quick</button>
-            <button onclick="playSong('sounds/Always on My Mind (Elvis Presley).mp3')">Always on My Mind</button>
-            <button onclick="playSong('sounds/Cant_Help_Falling_inLove.mp3')">Can´t Help Falling in Love</button>
-            <button onclick="playSong('sounds/My Way_ (Elvis Presley).mp3')">My Way</button>
-            <button onclick="playSong('sounds/Here Comes the Sun.mp3')">Here Comes the Sun</button>
-            <button onclick="playSong('sounds/_While My Guitar Gentle Weeps_.mp3')">While My Guitar Gentle Weeps</button>
-            <audio id="audio" controls></audio>
-        </div>
-    </section>
-
-    <section id="gallery">
-        <h2>Galeria</h2>
-        <div class="gallery-container">
-            <div class="slider">
-                <img src="images/img01.jpg" alt="Imagem 1">
-                <img src="images/img02.jpg" alt="Imagem 2">
-                <img src="images/img03.jpg" alt="Imagem 3">
-                <img src="images/img04.jpg" alt="Imagem 4">
-                <img src="images/img05.jpg" alt="Imagem 5">
-                <img src="images/img06.jpg" alt="Imagem 6">
-                <img src="images/img07.jpg" alt="Imagem 7">
-                <img src="images/img08.jpg" alt="Imagem 8">
-                <img src="images/img09.jpg" alt="Imagem 9">
-                <img src="images/img10.jpg" alt="Imagem 10">
-                <img src="images/img11.jpg" alt="Imagem 11">
-            </div>
-            <button onclick="prevSlide()">&#10094;</button>
-            <button onclick="nextSlide()">&#10095;</button>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Contato</h2>
-        <p>Para informações sobre shows e agendamentos, entre em contato pelo WhatsApp:</p>
-        <br>
-        <a href="https://wa.me/5592995178534" target="_blank" id="whatsapp-button">
-            <button>WhatsApp</button>
-        </a>
-    </section>
-    
-
-    <footer>
-        <p>&copy; 2024 Diego Nascimento. Todos os direitos reservados.</p>
-        <div class="social-media">
-            <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a> | 
-            <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
-        </div>
-    </footer>
-
-    <!-- Música de fundo -->
-    <audio id="background-music" src="sounds/flyMeToTheMoon_1min.mp3" autoplay loop></audio>
-    <!-- Popup para iniciar a música -->
-    <div id="popup" class="popup">
-        <p>Clique para ouvir "Fly Me to the Moon"</p>
+<header>
+    <div class="sidebar">
+        <h1 class="sidebar-title">Diego Nascimento</h1>
+        <nav class="sidebar-nav">
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="#bio">Biografia</a></li>
+                <li><a href="#music">Músicas</a></li>
+                <li><a href="#videos">Vídeos</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
     </div>
-    <script src="js/script.js"></script>
+
+    <div class="cover-photo-container">
+        <div class="cover-photo"></div>
+    </div>
+</header>
+
+<!-- BIOGRAFIA -->
+<section id="bio">
+    <h2>Biografia</h2>
+    <p>
+        Diego Nascimento, de família de músicos, herdou o dom de seu avô, Joaquim Nascimento, o qual era violonista e compositor. 
+        Teve seu primeiro contato com o teclado aos 8 anos, influenciado por seu pai, Marialvo Nascimento, o qual é multi-instrumentista e produtor musical. 
+        Aos 13 anos, aprendeu a tocar violão e, aos 14, estudou técnicas vocais e partitura, enquanto crescia e desenvolvia a sua musicalidade no estúdio de seu pai. 
+        Aos 15, aprofundou-se em violão clássico, guitarra e bateria no Liceu de Artes e Ofícios Cláudio Santoro. 
+        Ingressou na Faculdade de Música da Universidade Federal do Amazonas, onde estudou por dois anos. 
+        Dedicou dez anos ao ensino de música e compôs, além de diversas músicas, a obra clássica para piano, 
+        <a href="https://dvalenascimento.github.io/melodias_da_floresta_web_page/" target="_blank">Melodias da Floresta</a>, 
+        que retrata os cantos dos pássaros. 
+        Atualmente, interpreta músicas internacionais em inglês, espanhol, francês e português, abrangendo gêneros como Rock, Jazz, Bossa Nova, entre outros.
+    </p>
+</section>
+
+<!-- MÚSICAS -->
+<section id="music">
+    <h2>Músicas</h2>
+
+    <div id="music-player">
+        <ul class="music-list">
+            <li onclick="playSong('sounds/NewYork_NewYork.mp3')">🎵 New York, New York</li>
+            <li onclick="playSong('sounds/Somewhere Over The Rainbow.mp3')">🎵 Somewhere Over The Rainbow</li>
+            <li onclick="playSong('sounds/Yesterday(Elvis Presley).mp3')">🎵 Yesterday</li>
+            <li onclick="playSong('sounds/Something.mp3')">🎵 Something</li>
+            <li onclick="playSong('sounds/La Barca_.mp3')">🎵 La Barca</li>
+            <li onclick="playSong('sounds/El Reloj_.mp3')">🎵 El Reloj</li>
+            <li onclick="playSong('sounds/Suspicious Mind_ (Elvis Presley).mp3')">🎵 Suspicious Minds</li>
+            <li onclick="playSong('sounds/Its Now or Never.mp3')">🎵 It's Now or Never</li>
+            <li onclick="playSong('sounds/Kiss Me Quick_ (Elvis Presley).mp3')">🎵 Kiss Me Quick</li>
+            <li onclick="playSong('sounds/Always on My Mind (Elvis Presley).mp3')">🎵 Always on My Mind</li>
+            <li onclick="playSong('sounds/Cant_Help_Falling_inLove.mp3')">🎵 Can't Help Falling in Love</li>
+            <li onclick="playSong('sounds/My Way_ (Elvis Presley).mp3')">🎵 My Way</li>
+            <li onclick="playSong('sounds/Here Comes the Sun.mp3')">🎵 Here Comes the Sun</li>
+            <li onclick="playSong('sounds/_While My Guitar Gentle Weeps_.mp3')">🎵 While My Guitar Gently Weeps</li>
+        </ul>
+
+        <audio id="audio" controls></audio>
+    </div>
+</section>
+
+<!-- VÍDEOS -->
+<section id="videos">
+    <h2>Vídeos</h2>
+
+    <div class="video-grid">
+        <iframe src="video/Wish You Were Here.mp4" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+</section>
+
+<!-- GALERIA -->
+<section id="gallery">
+    <h2>Galeria</h2>
+
+    <div class="gallery-wrapper">
+        <!-- Imagem principal -->
+        <div class="main-image">
+            <img id="currentImage" src="images/img01.jpg" alt="Galeria">
+        </div>
+
+        <!-- Miniaturas -->
+        <div class="thumbnails">
+            <img src="images/img01.png" onclick="selectImage(0)">
+            <img src="images/img02.png" onclick="selectImage(1)">
+            <img src="images/img03.png" onclick="selectImage(2)">
+            <img src="images/img04.png" onclick="selectImage(3)">
+            <img src="images/img05.png" onclick="selectImage(4)">
+            <img src="images/img06.png" onclick="selectImage(5)">
+            <img src="images/img07.png" onclick="selectImage(6)">
+            <img src="images/img08.jpeg" onclick="selectImage(7)">
+            <img src="images/img09.png" onclick="selectImage(8)">
+            <img src="images/img10.png" onclick="selectImage(9)">
+            <img src="images/img11.png" onclick="selectImage(10)">
+        </div>
+    </div>
+</section>
+<!-- CONTATO -->
+<section id="contact">
+    <h2>Contato</h2>
+    <p>Para shows, eventos e apresentações ao vivo:</p>
+
+    <a href="https://wa.me/5592995178534?text=Olá,%20quero%20contratar%20um%20show" target="_blank" id="whatsapp-button">
+        <button>📲 Agendar Apresentação</button>
+    </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2024 Diego Nascimento. Todos os direitos reservados.</p>
+
+    <div class="social-media">
+        <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a> |
+        <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
+    </div>
+</footer>
+
+<!-- MÚSICA DE FUNDO -->
+<audio id="background-music" src="sounds/flyMeToTheMoon_1min.mp3" loop></audio>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <p>Clique para ouvir 🎶 Fly Me to the Moon</p>
+</div>
+
+<script src="js/script.js"></script>
+
 </body>
 </html>
