@@ -383,3 +383,101 @@ footer {
     border: 2px solid #d4af37;
     opacity: 1;
 }
+
+.video-card {
+    text-align: center;
+}
+
+.video-card h3 {
+    margin-bottom: 10px;
+    color: #d4af37; /* dourado */
+    font-size: 1.2em;
+}
+
+.video-grid video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* ============================= */
+/* 🔥 MELHORIAS RESPONSIVAS EXTRA */
+/* ============================= */
+
+/* Vídeos mais profissionais */
+.video-grid video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(212,175,55,0.2);
+}
+
+/* Cards de vídeo */
+.video-card {
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: scale(1.03);
+}
+
+/* Melhor espaçamento geral */
+section {
+    margin: 20px auto;
+}
+
+/* Ajuste galeria (mais suave) */
+.main-image img {
+    transition: all 0.3s ease;
+}
+
+/* Scroll horizontal mais bonito */
+.thumbnails::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+}
+
+/* Mobile refinado */
+@media (max-width: 768px) {
+
+    .sidebar {
+        padding: 10px 15px;
+    }
+
+    .sidebar-title {
+        font-size: 1.2em;
+    }
+
+    section {
+        padding: 20px 15px;
+    }
+
+    .music-list li {
+        font-size: 0.9em;
+    }
+
+    .video-card h3 {
+        font-size: 1em;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+
+    .cover-photo {
+        height: 180px;
+    }
+
+    section h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        width: 100%;
+    }
+}
