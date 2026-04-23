@@ -1,256 +1,234 @@
 // ===============================
-// VARIÁVEIS DE CONTROLE
+// VARIÁVEIS GLOBAIS
 // ===============================
-let musicStarted = false;
-let playCount = 0;
-let currentSlide = 0;
-let slideInterval;
+let currentPage = 0;
+let pages = [];
+
+let currentTrackIndex = 0;
+let audioElement;
+let isPlaying = false;
+let radioStarted = false;
+
+let images = [];
+let currentImageIndex = 0;
+let autoSlide;
 
 // ===============================
-// INICIALIZAÇÃO GERAL (UNIFICADA)
+// PLAYLIST
+// ===============================
+const playlist = [
+    { src: "sounds/Always on My Mind (Elvis Presley).mp3", name: "Always on My Mind" },
+    { src: "sounds/Cant_Help_Falling_inLove.mp3", name: "Can't Help Falling in Love" },
+    { src: "sounds/El Reloj_.mp3", name: "El Reloj" },
+    { src: "sounds/flyMeToTheMoon_1min.mp3", name: "Fly Me to the Moon" },
+    { src: "sounds/Here Comes the Sun.mp3", name: "Here Comes the Sun" },
+    { src: "sounds/Its Now or Never.mp3", name: "It's Now or Never" },
+    { src: "sounds/Kiss Me Quick_ (Elvis Presley).mp3", name: "Kiss Me Quick" },
+    { src: "sounds/la Barca_.mp3", name: "La Barca" },
+    { src: "sounds/My Way_ (Elvis Presley).mp3", name: "My Way" },
+    { src: "sounds/NewYork_NewYork.mp3", name: "New York, New York" },
+    { src: "sounds/Something.mp3", name: "Something" },
+    { src: "sounds/Somewhere Over The Rainbow.mp3", name: "Somewhere Over The Rainbow" },
+    { src: "sounds/Suspicious Mind_ (Elvis Presley).mp3", name: "Suspicious Minds" },
+    { src: "sounds/While My Guitar Gentle Weeps.mp3", name: "While My Guitar Gently Weeps" },
+    { src: "sounds/Yesterday(Elvis Presley).mp3", name: "Yesterday" }
+];
+
+// ===============================
+// INICIALIZAÇÃO
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    initPopup();
+    initBook();
     initAudio();
-    initSlider();
     initMenu();
+    initGallery();
     initTitleAnimation();
+    initVideoControl();
 });
 
 // ===============================
-// POPUP + MÚSICA DE FUNDO
+// 📖 LIVRO (BIOGRAFIA)
 // ===============================
-function initPopup() {
-    const popup = document.getElementById('popup');
-    const backgroundMusic = document.getElementById('background-music');
+function initBook() {
+    pages = document.querySelectorAll(".page");
+    showPage(currentPage);
+}
 
-    if (!popup || !backgroundMusic) return;
-
-    if (!localStorage.getItem("musicStarted")) {
-        popup.style.display = 'flex';
-    }
-
-    popup.addEventListener('click', () => {
-        if (!musicStarted) {
-            backgroundMusic.play().catch(error => {
-                console.error("Erro ao tocar a música de fundo:", error);
-            });
-
-            musicStarted = true;
-            localStorage.setItem("musicStarted", "true");
-            popup.style.display = 'none';
-        }
+function showPage(index) {
+    pages.forEach((page, i) => {
+        page.classList.remove("active");
+        if (i === index) page.classList.add("active");
     });
 }
 
+function nextPage() {
+    if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+    }
+}
+
+function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+    }
+}
+
 // ===============================
-// PLAYER DE MÚSICA
+// 🎧 PLAYER / RÁDIO
 // ===============================
 function initAudio() {
-    const audio = document.getElementById('audio');
-    const backgroundMusic = document.getElementById('background-music');
+    audioElement = document.getElementById("audio");
+    if (!audioElement) return;
 
-    if (!audio || !backgroundMusic) return;
+    audioElement.volume = 0.6;
 
-    audio.addEventListener('ended', () => {
-        backgroundMusic.play().catch(() => {});
-    });
+    // tocar automaticamente no primeiro clique do usuário
+    document.addEventListener("click", () => {
+        if (!radioStarted) {
+            radioStarted = true;
+            playTrack(currentTrackIndex);
+        }
+    }, { once: true });
+
+    audioElement.addEventListener("ended", nextTrack);
 }
 
-function playSong(song) {
-    const audio = document.getElementById('audio');
-    const backgroundMusic = document.getElementById('background-music');
+function playTrack(index) {
+    const track = playlist[index];
+    if (!track) return;
 
-    if (!audio) {
-        console.error("Elemento de áudio não encontrado");
-        return;
-    }
+    currentTrackIndex = index;
 
-    // Para música de fundo
-    if (backgroundMusic) {
-        backgroundMusic.pause();
-    }
+    audioElement.src = encodeURI(track.src);
+    audioElement.load();
 
-    // RESET COMPLETO (ESSENCIAL)
-    audio.pause();
-    audio.currentTime = 0;
+    audioElement.play().then(() => {
+        isPlaying = true;
+        updatePlayButton();
+    }).catch(() => {});
 
-    // Corrige possíveis problemas de caminho (encode automático)
-    const encodedSong = encodeURI(song);
-
-    audio.src = encodedSong;
-    audio.load(); // 🔥 força carregamento
-
-    const playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                console.log("Música tocando:", song);
-            })
-            .catch(error => {
-                console.error("Erro ao tocar:", error);
-                alert("Erro ao reproduzir a música. Verifique o caminho do arquivo.");
-            });
-    }
-
-    playCount++;
-    updatePlayCount();
-}
-
-// ===============================
-// CONTROLE DE MÚSICA
-// ===============================
-function pauseMusic() {
-    document.getElementById('background-music')?.pause();
-}
-
-function resumeMusic() {
-    document.getElementById('background-music')?.play();
-}
-
-function stopMusic() {
-    const audio = document.getElementById('background-music');
-    if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
+    const trackName = document.getElementById("current-track");
+    if (trackName) {
+        trackName.textContent = "🎵 Tocando: " + track.name;
     }
 }
 
-// ===============================
-// SLIDER (CORRIGIDO)
-// ===============================
-function initSlider() {
-    const slides = document.querySelectorAll('.slider img');
-    const slider = document.querySelector('.slider');
+function togglePlay() {
+    if (!audioElement) return;
 
-    if (!slides.length || !slider) {
-        console.warn("Slider não encontrado ou sem imagens.");
-        return;
+    if (audioElement.paused) {
+        audioElement.play();
+        isPlaying = true;
+    } else {
+        audioElement.pause();
+        isPlaying = false;
     }
 
-    // Garante posição inicial
-    currentSlide = 0;
-    updateSlider();
-
-    // Autoplay
-    slideInterval = setInterval(() => {
-        nextSlide();
-    }, 4000);
+    updatePlayButton();
 }
 
-function updateSlider() {
-    const slider = document.querySelector('.slider');
-    if (!slider) return;
-
-    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    playTrack(currentTrackIndex);
 }
 
-function showSlide(index) {
-    const slides = document.querySelectorAll('.slider img');
-
-    if (!slides.length) return;
-
-    if (index >= slides.length) currentSlide = 0;
-    else if (index < 0) currentSlide = slides.length - 1;
-    else currentSlide = index;
-
-    updateSlider();
+function prevTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    playTrack(currentTrackIndex);
 }
 
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
+function updatePlayButton() {
+    const btn = document.getElementById("play-btn");
+    if (!btn) return;
 
-function prevSlide() {
-    showSlide(currentSlide - 1);
+    btn.textContent = isPlaying ? "⏸️" : "▶️";
 }
 
 // ===============================
-// TECLADO
-// ===============================
-document.addEventListener('keydown', (event) => {
-    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
-
-    if (event.key === 'ArrowRight') nextSlide();
-    if (event.key === 'ArrowLeft') prevSlide();
-});
-
-// ===============================
-// MENU MOBILE
+// 📱 MENU
 // ===============================
 function initMenu() {
     const menuItems = document.querySelectorAll('.sidebar-nav ul li');
 
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
-            hideSidebar();
+            document.querySelector('.sidebar-nav ul')?.classList.remove('show');
         });
     });
 }
 
 function toggleMenu() {
-    const nav = document.querySelector('.sidebar-nav ul');
-    nav?.classList.toggle('show');
-}
-
-function hideSidebar() {
-    const nav = document.querySelector('.sidebar-nav ul');
-    nav?.classList.remove('show');
+    document.querySelector('.sidebar-nav ul')?.classList.toggle('show');
 }
 
 // ===============================
-// ANIMAÇÃO DE TÍTULO
+// 🖼️ GALERIA
+// ===============================
+function initGallery() {
+    images = document.querySelectorAll('.thumbnails img');
+    if (images.length === 0) return;
+
+    selectImage(0);
+
+    autoSlide = setInterval(() => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        selectImage(currentImageIndex);
+    }, 4000);
+}
+
+function selectImage(index) {
+    const mainImage = document.getElementById('currentImage');
+    if (!mainImage) return;
+
+    currentImageIndex = index;
+    mainImage.src = images[index].src;
+
+    images.forEach(img => img.classList.remove('active'));
+    images[index].classList.add('active');
+}
+
+// ===============================
+// 🎨 TÍTULO ANIMADO
 // ===============================
 function initTitleAnimation() {
-    const title = document.getElementById('header-title');
-
+    const title = document.querySelector('.sidebar-title');
     if (!title) return;
 
     let hue = 0;
 
     setInterval(() => {
         hue = (hue + 1) % 360;
-        title.style.color = `hsl(${hue}, 100%, 50%)`;
-    }, 150);
+        title.style.color = `hsl(${hue}, 100%, 60%)`;
+    }, 120);
 }
 
 // ===============================
-// CONTADOR DE REPRODUÇÃO
+// 🎬 PAUSAR RÁDIO AO DAR PLAY NO VÍDEO
 // ===============================
-function updatePlayCount() {
-    console.log(`Músicas reproduzidas: ${playCount}`);
-}
+function initVideoControl() {
+    const videos = document.querySelectorAll("video");
 
-let images = [];
-let currentIndex = 0;
-let autoSlide;
+    videos.forEach(video => {
 
-// Inicializa galeria
-document.addEventListener('DOMContentLoaded', () => {
-    images = document.querySelectorAll('.thumbnails img');
+        // Quando o vídeo começa
+        video.addEventListener("play", () => {
+            if (audioElement && !audioElement.paused) {
+                audioElement.pause();
+                isPlaying = false;
+                updatePlayButton();
+            }
+        });
 
-    if (images.length === 0) return;
+        // (Opcional 🔥) Quando o vídeo pausa, a rádio volta
+        video.addEventListener("pause", () => {
+            if (audioElement && !isPlaying && radioStarted) {
+                audioElement.play().catch(() => {});
+                isPlaying = true;
+                updatePlayButton();
+            }
+        });
 
-    selectImage(0);
-
-    // Auto troca
-    autoSlide = setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        selectImage(currentIndex);
-    }, 4000);
-});
-
-function selectImage(index) {
-    const mainImage = document.getElementById('currentImage');
-
-    if (!mainImage || images.length === 0) return;
-
-    currentIndex = index;
-
-    mainImage.src = images[index].src;
-
-    // Atualiza destaque
-    images.forEach(img => img.classList.remove('active'));
-    images[index].classList.add('active');
+    });
 }

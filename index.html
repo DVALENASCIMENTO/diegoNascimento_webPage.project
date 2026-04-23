@@ -12,11 +12,11 @@
 <header>
     <div class="sidebar">
         <h1 class="sidebar-title">Diego Nascimento</h1>
+
         <nav class="sidebar-nav">
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-            <ul>
+            <ul id="menu">
                 <li><a href="#bio">Biografia</a></li>
-                <li><a href="#music">Músicas</a></li>
                 <li><a href="#videos">Vídeos</a></li>
                 <li><a href="#gallery">Galeria</a></li>
                 <li><a href="#contact">Contato</a></li>
@@ -29,79 +29,96 @@
     </div>
 </header>
 
-<!-- BIOGRAFIA -->
+<!-- BIO -->
 <section id="bio">
     <h2>Biografia</h2>
-    <p>
-        Diego Nascimento, de família de músicos, herdou o dom de seu avô, Joaquim Nascimento, o qual era violonista e compositor. 
-        Teve seu primeiro contato com o teclado aos 8 anos, influenciado por seu pai, Marialvo Nascimento, o qual é multi-instrumentista e produtor musical. 
-        Aos 13 anos, aprendeu a tocar violão e, aos 14, estudou técnicas vocais e partitura, enquanto crescia e desenvolvia a sua musicalidade no estúdio de seu pai. 
-        Aos 15, aprofundou-se em violão clássico, guitarra e bateria no Liceu de Artes e Ofícios Cláudio Santoro. 
-        Ingressou na Faculdade de Música da Universidade Federal do Amazonas, onde estudou por dois anos. 
-        Dedicou dez anos ao ensino de música e compôs, além de diversas músicas, a obra clássica para piano, 
-        <a href="https://dvalenascimento.github.io/melodias_da_floresta_web_page/" target="_blank">Melodias da Floresta</a>, 
-        que retrata os cantos dos pássaros. 
-        Atualmente, interpreta músicas internacionais em inglês, espanhol, francês e português, abrangendo gêneros como Rock, Jazz, Bossa Nova, entre outros.
-    </p>
-</section>
 
-<!-- MÚSICAS -->
-<section id="music">
-    <h2>Músicas</h2>
+    <div class="book">
 
-    <div id="music-player">
-        <ul class="music-list">
-            <li onclick="playSong('sounds/NewYork_NewYork.mp3')">🎵 New York, New York</li>
-            <li onclick="playSong('sounds/Somewhere Over The Rainbow.mp3')">🎵 Somewhere Over The Rainbow</li>
-            <li onclick="playSong('sounds/Yesterday(Elvis Presley).mp3')">🎵 Yesterday</li>
-            <li onclick="playSong('sounds/Something.mp3')">🎵 Something</li>
-            <li onclick="playSong('sounds/La Barca_.mp3')">🎵 La Barca</li>
-            <li onclick="playSong('sounds/El Reloj_.mp3')">🎵 El Reloj</li>
-            <li onclick="playSong('sounds/Suspicious Mind_ (Elvis Presley).mp3')">🎵 Suspicious Minds</li>
-            <li onclick="playSong('sounds/Its Now or Never.mp3')">🎵 It's Now or Never</li>
-            <li onclick="playSong('sounds/Kiss Me Quick_ (Elvis Presley).mp3')">🎵 Kiss Me Quick</li>
-            <li onclick="playSong('sounds/Always on My Mind (Elvis Presley).mp3')">🎵 Always on My Mind</li>
-            <li onclick="playSong('sounds/Cant_Help_Falling_inLove.mp3')">🎵 Can't Help Falling in Love</li>
-            <li onclick="playSong('sounds/My Way_ (Elvis Presley).mp3')">🎵 My Way</li>
-            <li onclick="playSong('sounds/Here Comes the Sun.mp3')">🎵 Here Comes the Sun</li>
-            <li onclick="playSong('sounds/_While My Guitar Gentle Weeps_.mp3')">🎵 While My Guitar Gently Weeps</li>
-        </ul>
+        <button class="book-btn left" onclick="prevPage()">❮</button>
 
-        <audio id="audio" controls></audio>
+        <div class="page active">
+        <h3>Origem</h3>
+        <p>Diego Nascimento nasceu em um ambiente profundamente marcado pela música. Vindo de uma família de músicos, teve suas primeiras influências ainda na infância, herdando a sensibilidade artística de seu avô, Joaquim Nascimento, violonista reconhecido por tocar no estilo “baixaria” e compositor intuitivo.</p>
+        <p>Mesmo sem saber ler ou escrever, seu avô criava composições que eram registradas por Diego, ainda muito jovem, estabelecendo ali um vínculo precoce com a música autoral e o processo criativo. Essa convivência não apenas despertou seu interesse musical, mas também moldou sua percepção artística desde cedo.</p>
+        <p>A influência familiar se fortaleceu com seu pai, Marialvo Nascimento, músico completo — multi-instrumentista, cantor e produtor musical — que teve papel fundamental na formação de Diego, transmitindo conhecimento, prática e vivência musical no dia a dia.</p>
+        <p>Foi por meio de seu pai que, aos 8 anos de idade, teve seu primeiro contato com o teclado, instrumento que marcou o início de sua jornada musical. Desde então, Diego passou a desenvolver sua musicalidade com dedicação, sensibilidade e forte conexão emocional com a arte.</p>
+        <p>Essa base familiar sólida e imersa na música foi determinante para a construção de sua identidade artística, estabelecendo os primeiros pilares de uma trajetória que, mais tarde, ganharia reconhecimento em diferentes palcos e contextos culturais.</p>
+        </div>
+
+        <div class="page">  
+        <h3>Release Artístico</h3>
+        <p>Diego Nascimento iniciou sua trajetória musical ainda na adolescência, em 2001, na Escola Estadual Marechal Hermes, onde formou sua primeira banda aos 13 anos. Seu primeiro reconhecimento veio por meio de um projeto cultural promovido pela Secretaria de Estado de Educação do Amazonas, com temática voltada à cidadania.</p>
+        <p>Nesse contexto, Diego destacou-se como compositor ao apresentar uma música autoral que foi selecionada entre diversas escolas da rede estadual, levando-o à fase final do concurso.</p>
+        <p>Como finalista, realizou uma apresentação oficial na sede da SEDUC-AM, diante do Secretário de Educação. O desempenho do grupo resultou na conquista de instrumentos musicais para a escola — incluindo bateria, teclado e guitarra — evidenciando o impacto direto de sua participação no incentivo à prática musical no ambiente escolar.</p>
+        <p>A projeção desse trabalho se estendeu para outros espaços culturais de relevância em Manaus. No SESC Amazonas, apresentou-se sob avaliação de um corpo de jurados qualificado, com destaque para a presença do renomado músico amazonense Seldo Braga.</p>
+        <p>Paralelamente, participou de um segundo concurso musical independente no Anfiteatro da Ponta Negra, ampliando sua experiência de palco e consolidando sua vivência artística desde cedo.</p>
+        <p>Essa fase inicial marca o surgimento de um artista com forte inclinação para a composição autoral, performance ao vivo e participação em projetos culturais.</p>
+        </div>
+
+        <div class="page">  
+        <h3>Formação</h3>
+        <p>Aos 13 anos, Diego Nascimento iniciou seus estudos no violão sob orientação do professor Onéias Maquiné. Demonstrando rápida assimilação e sensibilidade musical, em apenas uma semana de aulas já executava a canção <em>Pais e Filhos</em>, da Legião Urbana — um marco inicial que evidenciava seu talento e dedicação.</p>
+        <p>Aos 14 anos, aprofundou seus conhecimentos musicais ao ingressar no curso de canto coral no Centro de Artes Irmã Yolanda Setúbal, sob orientação do professor Beethoven Cabrinha. Nesse período, desenvolveu técnicas vocais, leitura de partituras e percepção musical, concluindo o curso com êxito, enquanto simultaneamente expandia sua prática no estúdio de seu pai — ambiente que contribuiu diretamente para sua formação prática e criativa.</p>
+        <p>Aos 15 anos, ingressou no Liceu de Artes e Ofícios Cláudio Santoro, onde deu continuidade à sua formação musical. Estudou violão clássico com Roberto Bopp, além de desenvolver habilidades em guitarra e bateria, ampliando significativamente seu domínio técnico e versatilidade artística.</p>
+        <p>Paralelamente, desenvolveu-se como autodidata no contrabaixo. Em uma época anterior à popularização da internet, Diego buscava conhecimento por meio de vídeos em fita cassete e revistas especializadas, estudando técnicas, grooves e fundamentos do instrumento de forma independente. Essa prática exigia disciplina, escuta atenta e repetição constante, fortalecendo sua autonomia musical e sua capacidade de aprendizado intuitivo.</p>
+        <p>Posteriormente, ingressou na Universidade Federal do Amazonas, onde cursou a Faculdade de Música por dois anos. Nesse período, aprofundou seus estudos em violão clássico sob orientação do professor Arcângelo, além de adquirir base em regência. Durante sua formação acadêmica, destacou-se em percepção musical entre músicos atuantes em importantes formações da cidade, como Orquestra Sinfônica, Orquestra de Violões e Big Band.</p>
+        </div>
+
+        <div class="page">  
+        <h3>Experiência e Consolidação</h3>
+        <p>Dos 15 aos 19 anos, Diego Nascimento aprofundou sua formação prática no estúdio de seu pai, Marialvo Nascimento. Nesse ambiente, desenvolveu habilidades técnicas e artísticas que seriam fundamentais para sua carreira, atuando como técnico de som, produtor musical e instrumentista.<br><br>Durante esse período, ampliou sua versatilidade ao executar diversos instrumentos e participar ativamente de produções musicais, incluindo gravações e arranjos, além de atuar como backing vocal. Essa vivência intensa em estúdio consolidou sua compreensão prática da música, desde a execução até os processos de captação, edição e finalização sonora.<br><br></p>
+        <p>Aos 19 anos, recebeu um convite para atuar como Diretor Musical e regente de coral em um congresso estadual de uma denominação evangélica, realizado no Auditório da Prefeitura de Manaus. Nessa função, foi responsável pela condução musical e organização do coro, demonstrando liderança, sensibilidade artística e domínio técnico em um evento de grande porte.<br><br></p>
+        <p>Dos 19 aos 32 anos, empreendeu na área da educação musical, tornando-se proprietário de sua própria <a href="https://dvalenascimento.github.io/maestrinhoEscoladeMusica.project/" target="_blank">"Escola de Música Maestrinho"</a>. Nesse período, formou diversos alunos, ministrando aulas de violão, guitarra, contrabaixo, bateria, teclado, canto coral e teoria musical, consolidando sua atuação como educador e multiplicador de conhecimento.<br><br></p>
+        <p>Paralelamente, estruturou e administrou seu próprio home estúdio de gravação, onde produziu trabalhos musicais, realizou gravações e desenvolveu <a href="https://dvalenascimento.github.io/discografia_diego_nascimento/" target="_blank">"Projetos Autorais Gospel"</a> e de terceiros, unindo prática pedagógica e produção musical em sua rotina profissional.<br><br></p>
+        <p>A partir dessa fase, passou a atuar de forma consistente em apresentações ao vivo, construindo experiência de palco em diferentes contextos e formatos. Seu repertório versátil abrange estilos como MPB, Bossa Nova, Jazz, Rock, Country e Gospel, com performances realizadas em eventos como confraternizações, aniversários, casamentos e diversas ocasiões sociais.<br><br></p>
+        <p>Essa trajetória evidencia um artista completo, com sólida experiência em performance, produção, direção musical e formação de novos músicos, consolidando sua presença no cenário musical ao longo dos anos.</p>
+        </div>
+
+        <div class="page">  
+        <h3>Momento Atual</h3>
+        <p>Atualmente, Diego Nascimento apresenta-se como um artista versátil e maduro, cuja trajetória reúne experiência prática, formação técnica e sensibilidade artística construída ao longo dos anos.</p>
+        <p>Sua identidade musical é marcada pela diversidade de estilos e pela capacidade de transitar com naturalidade entre diferentes linguagens sonoras. Em suas performances, interpreta repertórios em múltiplos idiomas — incluindo inglês, espanhol, francês e hebraico — ampliando sua conexão com públicos variados e reforçando sua versatilidade como intérprete.</p>
+        <p>Seu repertório dialoga com grandes referências da música internacional, como Frank Sinatra, Elvis Presley, The Beatles e Charles Trenet, entre outros nomes que influenciam sua interpretação, presença de palco e estética musical.</p>
+        <p>Além das apresentações ao vivo, Diego também se dedica à criação autoral, explorando a música como expressão sensível e artística. Um de seus projetos de destaque é a obra para piano <a href="https://dvalenascimento.github.io/melodias_da_floresta_web_page/" target="_blank">"Melodias da Floresta"</a>, disponível online, onde desenvolve uma proposta sonora inspirada na natureza, na contemplação e na identidade amazônica.</p>
+        <p>Seu trabalho reflete não apenas domínio técnico, mas também propósito artístico: levar emoção, identidade e conexão por meio da música. Seja no palco, no ensino ou na produção, Diego Nascimento constrói uma trajetória que une tradição, versatilidade e autenticidade, consolidando-se como um artista completo e em constante evolução.</p>
+        </div>
+
+        <button class="book-btn right" onclick="nextPage()">❯</button>
+
     </div>
 </section>
+
+
+<!-- PLAYER -->
+<div id="radio-player">
+    <div class="player-content">
+        <span id="current-track">🎵 Tocando: ---</span>
+
+        <div class="player-controls">
+            <button onclick="prevTrack()">⏮️</button>
+            <button onclick="togglePlay()" id="play-btn">▶️</button>
+            <button onclick="nextTrack()">⏭️</button>
+        </div>
+    </div>
+
+    <audio id="audio"></audio>
+</div>
 
 <!-- VÍDEOS -->
 <section id="videos">
     <h2>Vídeos</h2>
 
     <div class="video-grid">
-
-        <!-- Vídeo 1 -->
         <div class="video-card">
-            <h3>Wish You Were Here - Voz e Violão</h3>
-            <video controls preload="none">
-                <source src="video/wish_you_were_here.mp4" type="video/mp4">
-                Seu navegador não suporta vídeo.
-            </video>
+            <h3>Wish You Were Here</h3>
+            <video controls><source src="video/wish_you_were_here.mp4"></video>
         </div>
 
-        <!-- Vídeo 2 -->
         <div class="video-card">
-            <h3>Apresentação ao Vivo</h3>
-            <video controls preload="none">
-                <source src="video/video2.mp4" type="video/mp4">
-            </video>
+            <h3>Ao Vivo</h3>
+            <video controls><source src="video/video2.mp4"></video>
         </div>
-
-        <!-- Vídeo 3 -->
-        <div class="video-card">
-            <h3>Performance Instrumental</h3>
-            <video controls preload="none">
-                <source src="video/video3.mp4" type="video/mp4">
-            </video>
-        </div>
-
     </div>
 </section>
 
@@ -110,13 +127,11 @@
     <h2>Galeria</h2>
 
     <div class="gallery-wrapper">
-        <!-- Imagem principal -->
         <div class="main-image">
-            <img id="currentImage" src="images/img01.jpg" alt="Galeria">
+            <img id="currentImage" src="images/img01.png" alt="Galeria de fotos">
         </div>
 
-        <!-- Miniaturas -->
-        <div class="thumbnails">
+        <div class="thumbnails scroll">
             <img src="images/img01.png" onclick="selectImage(0)">
             <img src="images/img02.png" onclick="selectImage(1)">
             <img src="images/img03.png" onclick="selectImage(2)">
@@ -125,40 +140,26 @@
             <img src="images/img06.png" onclick="selectImage(5)">
             <img src="images/img07.png" onclick="selectImage(6)">
             <img src="images/img08.jpeg" onclick="selectImage(7)">
-            <img src="images/img09.png" onclick="selectImage(8)">
             <img src="images/img10.png" onclick="selectImage(9)">
             <img src="images/img11.png" onclick="selectImage(10)">
-            <img src="images/img12.jpeg" onclick="selectImage(10)">
+            <img src="images/img12.jpeg" onclick="selectImage(11)">
+            <img src="images/Diego no Estúdio.png" onclick="selectImage(12)">
         </div>
     </div>
 </section>
+
 <!-- CONTATO -->
 <section id="contact">
     <h2>Contato</h2>
-    <p>Para shows, eventos e apresentações ao vivo:</p>
 
-    <a href="https://wa.me/5592995178534?text=Olá,%20quero%20contratar%20um%20show" target="_blank" id="whatsapp-button">
+    <a href="https://wa.me/5592995178534" target="_blank">
         <button>📲 Agendar Apresentação</button>
     </a>
 </section>
 
-<!-- FOOTER -->
 <footer>
-    <p>&copy; 2024 Diego Nascimento. Todos os direitos reservados.</p>
-
-    <div class="social-media">
-        <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a> |
-        <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
-    </div>
+    <p>&copy; 2026 Diego Nascimento</p>
 </footer>
-
-<!-- MÚSICA DE FUNDO -->
-<audio id="background-music" src="sounds/flyMeToTheMoon_1min.mp3" loop></audio>
-
-<!-- POPUP -->
-<div id="popup" class="popup">
-    <p>Clique para ouvir 🎶 Fly Me to the Moon</p>
-</div>
 
 <script src="js/script.js"></script>
 
