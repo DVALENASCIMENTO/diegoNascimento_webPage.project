@@ -122,29 +122,37 @@
     </div>
 </section>
 
-<!-- GALERIA -->
 <section id="gallery">
     <h2>Galeria</h2>
 
     <div class="gallery-wrapper">
+
+        <!-- IMAGEM PRINCIPAL -->
         <div class="main-image">
             <img id="currentImage" src="images/img01.png" alt="Galeria de fotos">
+            <p id="caption">Descrição da imagem</p>
         </div>
 
-        <div class="thumbnails scroll">
-            <img src="images/img01.png" onclick="selectImage(0)">
-            <img src="images/img02.png" onclick="selectImage(1)">
-            <img src="images/img03.png" onclick="selectImage(2)">
-            <img src="images/img04.png" onclick="selectImage(3)">
-            <img src="images/img05.png" onclick="selectImage(4)">
-            <img src="images/img06.png" onclick="selectImage(5)">
-            <img src="images/img07.png" onclick="selectImage(6)">
-            <img src="images/img08.jpeg" onclick="selectImage(7)">
-            <img src="images/img10.png" onclick="selectImage(9)">
-            <img src="images/img11.png" onclick="selectImage(10)">
-            <img src="images/img12.jpeg" onclick="selectImage(11)">
-            <img src="images/Diego no Estúdio.png" onclick="selectImage(12)">
+        <!-- MINIATURAS ESTILO FILME -->
+        <div class="thumbnail-container">
+            <div class="thumbnails" id="thumbnails">
+
+                <img src="images/img01.png" data-caption="Apresentação ao vivo">
+                <img src="images/img02.png" data-caption="Show em evento">
+                <img src="images/img03.png" data-caption="Performance musical">
+                <img src="images/img04.png" data-caption="Ambiente artístico">
+                <img src="images/img05.png" data-caption="Palco profissional">
+                <img src="images/img06.png" data-caption="Gravação em estúdio">
+                <img src="images/img07.png" data-caption="Instrumentista em ação">
+                <img src="images/img08.jpeg" data-caption="Evento especial">
+                <img src="images/img10.png" data-caption="Apresentação intimista">
+                <img src="images/img11.png" data-caption="Performance ao vivo">
+                <img src="images/img12.jpeg" data-caption="Show musical">
+                <img src="images/Diego no Estúdio.png" data-caption="Gravação em estúdio">
+
+            </div>
         </div>
+
     </div>
 </section>
 

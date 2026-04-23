@@ -9,10 +9,6 @@ let audioElement;
 let isPlaying = false;
 let radioStarted = false;
 
-let images = [];
-let currentImageIndex = 0;
-let autoSlide;
-
 // ===============================
 // PLAYLIST
 // ===============================
@@ -41,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initBook();
     initAudio();
     initMenu();
-    initGallery();
+    initGallery(); // 🔥 GALERIA FUNCIONANDO
     initTitleAnimation();
     initVideoControl();
 });
 
 // ===============================
-// 📖 LIVRO (BIOGRAFIA)
+// 📖 LIVRO
 // ===============================
 function initBook() {
     pages = document.querySelectorAll(".page");
@@ -76,7 +72,7 @@ function prevPage() {
 }
 
 // ===============================
-// 🎧 PLAYER / RÁDIO
+// 🎧 PLAYER
 // ===============================
 function initAudio() {
     audioElement = document.getElementById("audio");
@@ -84,7 +80,6 @@ function initAudio() {
 
     audioElement.volume = 0.6;
 
-    // tocar automaticamente no primeiro clique do usuário
     document.addEventListener("click", () => {
         if (!radioStarted) {
             radioStarted = true;
@@ -164,29 +159,56 @@ function toggleMenu() {
 }
 
 // ===============================
-// 🖼️ GALERIA
+// 🖼️ GALERIA PROFISSIONAL (PDF STYLE)
 // ===============================
 function initGallery() {
-    images = document.querySelectorAll('.thumbnails img');
-    if (images.length === 0) return;
 
-    selectImage(0);
+    const mainImage = document.getElementById("currentImage");
+    const caption = document.getElementById("caption");
+    const thumbnails = document.querySelectorAll("#thumbnails img");
+    const gallery = document.querySelector(".gallery-wrapper");
 
-    autoSlide = setInterval(() => {
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        selectImage(currentImageIndex);
-    }, 4000);
-}
+    if (!mainImage || thumbnails.length === 0) return;
 
-function selectImage(index) {
-    const mainImage = document.getElementById('currentImage');
-    if (!mainImage) return;
+    let index = 0;
+    let interval = null;
 
-    currentImageIndex = index;
-    mainImage.src = images[index].src;
+    function updateGallery(i) {
+        mainImage.src = thumbnails[i].src;
+        caption.textContent = thumbnails[i].dataset.caption || "";
 
-    images.forEach(img => img.classList.remove('active'));
-    images[index].classList.add('active');
+        thumbnails.forEach(img => img.classList.remove("active"));
+        thumbnails[i].classList.add("active");
+    }
+
+    thumbnails.forEach((thumb, i) => {
+        thumb.addEventListener("click", () => {
+            index = i;
+            updateGallery(index);
+        });
+    });
+
+    function startAuto() {
+        stopAuto();
+        interval = setInterval(() => {
+            index = (index + 1) % thumbnails.length;
+            updateGallery(index);
+        }, 4000);
+    }
+
+    function stopAuto() {
+        if (interval) clearInterval(interval);
+    }
+
+    // Hover pausa (efeito premium 🔥)
+    if (gallery) {
+        gallery.addEventListener("mouseenter", stopAuto);
+        gallery.addEventListener("mouseleave", startAuto);
+    }
+
+    // Inicialização
+    updateGallery(0);
+    startAuto();
 }
 
 // ===============================
@@ -205,14 +227,13 @@ function initTitleAnimation() {
 }
 
 // ===============================
-// 🎬 PAUSAR RÁDIO AO DAR PLAY NO VÍDEO
+// 🎬 PAUSAR RÁDIO COM VÍDEO
 // ===============================
 function initVideoControl() {
     const videos = document.querySelectorAll("video");
 
     videos.forEach(video => {
 
-        // Quando o vídeo começa
         video.addEventListener("play", () => {
             if (audioElement && !audioElement.paused) {
                 audioElement.pause();
@@ -221,7 +242,6 @@ function initVideoControl() {
             }
         });
 
-        // (Opcional 🔥) Quando o vídeo pausa, a rádio volta
         video.addEventListener("pause", () => {
             if (audioElement && !isPlaying && radioStarted) {
                 audioElement.play().catch(() => {});

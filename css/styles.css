@@ -339,3 +339,91 @@ footer {
 p{
     text-align: justify;
 }
+
+/* === SLIDE AUTOMÁTICO DE DEPOIMENTOS === */
+.depoimentos-slider {
+  position: relative;
+  min-height: 140px;
+}
+
+.depoimento {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  text-align: center;
+}
+
+.depoimento.active {
+  opacity: 1;
+  position: relative;
+}
+
+.depoimento p {
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.depoimento span {
+  font-size: 0.9rem;
+  color: #00eaff;
+  opacity: 0.9;
+}
+
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+.main-image {
+  text-align: center;
+}
+
+.main-image img {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.main-image p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #ccc;
+}
+
+/* MINIATURAS */
+.thumbnail-container {
+  overflow: hidden;
+  margin-top: 15px;
+  position: relative;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  animation: scroll 25s linear infinite;
+}
+
+.thumbnails img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.7;
+}
+
+.thumbnails img:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* EFEITO FILME ROLANDO */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
