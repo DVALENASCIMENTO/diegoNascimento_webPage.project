@@ -427,3 +427,45 @@ p{
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+
+/* ===============================
+   DISCOGRAFIA
+================================ */
+
+.albums{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+
+.album-card{
+    background:#111;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    transition:.3s;
+}
+
+
+.album-card:hover{
+    transform:scale(1.05);
+}
+
+
+.album-card img{
+    width:100%;
+    border-radius:10px;
+}
+
+
+.album-card a{
+    text-decoration:none;
+    color:#d4af37;
+}
+
+
+.album-card h3{
+    margin-top:10px;
+}
